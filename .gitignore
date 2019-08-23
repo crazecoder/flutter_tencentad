@@ -1,0 +1,15 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+.idea/
+.vscode/
+example/.idea/
+example/android/.idea/
+example/android/.gradle/
+example/android/.settings/
+
+
+build/
+example/build/
