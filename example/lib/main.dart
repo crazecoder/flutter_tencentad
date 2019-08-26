@@ -5,8 +5,8 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   MyApp() {
-    FlutterTencentad.initTencentAdSDK(appId: "1101152570");
-    FlutterTencentad.showSplashAD(posId: "8863364436303842593");
+    // FlutterTencentad.initTencentAdSDK(appId: "1101152570");
+    // FlutterTencentad.showSplashAD(posId: "8863364436303842593");
   }
   @override
   Widget build(BuildContext context) {
