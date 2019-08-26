@@ -13,9 +13,10 @@ public class ADSplashActivity extends SplashActivity {
         return "8863364436303842593";
     }
 
+
     @Override
-    protected int getPlaceHolderImageId() {
-        return 0;
+    protected int getLaunchBackground() {
+        return R.drawable.launch_background;
     }
 
 }

@@ -62,9 +62,12 @@ public abstract class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         container = (ViewGroup) this.findViewById(R.id.splash_container);
         skipView = (TextView) findViewById(R.id.skip_view);
+        View placeHolder = findViewById(R.id.place_holder);
+        if (getLaunchBackground() > 0)
+            placeHolder.setBackground(getResources().getDrawable(getLaunchBackground()));
         ImageView splashHolder = (ImageView) findViewById(R.id.splash_holder);
-        if (getPlaceHolderImageId() > 0)
-            splashHolder.setImageResource(getPlaceHolderImageId());
+//        if (getPlaceHolderImageId() > 0)
+//            splashHolder.setImageResource(getPlaceHolderImageId());
         appId = getIntent().getStringExtra("appId");
         adId = getIntent().getStringExtra("posId");
         if (TextUtils.isEmpty(appId)) {
@@ -269,5 +272,7 @@ public abstract class SplashActivity extends Activity {
 
     protected abstract String getPosId();
 
-    protected abstract int getPlaceHolderImageId();
+//    protected abstract int getPlaceHolderImageId();
+
+    protected abstract int getLaunchBackground();
 }
