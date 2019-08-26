@@ -63,12 +63,14 @@ public abstract class SplashActivity extends Activity {
         container = (ViewGroup) this.findViewById(R.id.splash_container);
         skipView = (TextView) findViewById(R.id.skip_view);
         ImageView splashHolder = (ImageView) findViewById(R.id.splash_holder);
+        if (getPlaceHolderImageId() > 0)
+            splashHolder.setImageResource(getPlaceHolderImageId());
         appId = getIntent().getStringExtra("appId");
         adId = getIntent().getStringExtra("posId");
-        if(TextUtils.isEmpty(appId)){
+        if (TextUtils.isEmpty(appId)) {
             appId = getAppId();
         }
-        if(TextUtils.isEmpty(adId)){
+        if (TextUtils.isEmpty(adId)) {
             adId = getPosId();
         }
         // 如果targetSDKVersion >= 23，就要申请好权限。如果您的App没有适配到Android6.0（即targetSDKVersion < 23），那么只需要在这里直接调用fetchSplashAD接口。
@@ -130,7 +132,7 @@ public abstract class SplashActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1024 && hasAllPermissionsGranted(grantResults)) {
-            fetchSplashAD(this, container, skipView,appId, adId, splashADListener, 0);
+            fetchSplashAD(this, container, skipView, appId, adId, splashADListener, 0);
         } else {
             // 如果用户没有授权，那么应该说明意图，引导用户去设置里面授权。
             Toast.makeText(this, "应用缺少必要的权限！请点击\"权限\"，打开所需要的权限。", Toast.LENGTH_LONG).show();
@@ -262,9 +264,10 @@ public abstract class SplashActivity extends Activity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     protected abstract String getAppId();
 
     protected abstract String getPosId();
 
-
+    protected abstract int getPlaceHolderImageId();
 }
