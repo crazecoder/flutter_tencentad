@@ -19,4 +19,14 @@ public class ADSplashActivity extends SplashActivity {
         return R.drawable.launch_background;
     }
 
+    @Override
+    protected int getAppIconId() {
+        return 0;
+    }
+
+    @Override
+    protected int getBackgroundColor() {
+        return android.R.color.black;
+    }
+
 }

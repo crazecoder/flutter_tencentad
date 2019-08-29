@@ -21,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
@@ -59,12 +63,20 @@ public abstract class SplashActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //隐去状态栏部分（电池等图标和一起修饰部分）
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (getBackgroundColor() > 0) {
+            getWindow().getDecorView().setBackgroundColor(getBackgroundColor());
+        }
         setContentView(R.layout.activity_splash);
         container = (ViewGroup) this.findViewById(R.id.splash_container);
         skipView = (TextView) findViewById(R.id.skip_view);
         View placeHolder = findViewById(R.id.place_holder);
         if (getLaunchBackground() > 0)
             placeHolder.setBackground(getResources().getDrawable(getLaunchBackground()));
+        ImageView iconView = (ImageView) findViewById(R.id.app_logo);
+        if (getAppIconId() > 0) {
+            iconView.setImageResource(getAppIconId());
+        }
+
         ImageView splashHolder = (ImageView) findViewById(R.id.splash_holder);
 //        if (getPlaceHolderImageId() > 0)
 //            splashHolder.setImageResource(getPlaceHolderImageId());
@@ -274,5 +286,12 @@ public abstract class SplashActivity extends Activity {
 
 //    protected abstract int getPlaceHolderImageId();
 
-    protected abstract int getLaunchBackground();
+    protected abstract @DrawableRes
+    int getLaunchBackground();
+
+    protected abstract @DrawableRes
+    int getAppIconId();
+
+    protected abstract @ColorRes
+    int getBackgroundColor();
 }
