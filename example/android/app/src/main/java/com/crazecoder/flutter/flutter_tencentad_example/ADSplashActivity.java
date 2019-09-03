@@ -1,8 +1,11 @@
 package com.crazecoder.flutter.flutter_tencentad_example;
 
+import android.graphics.Color;
+
 import com.crazecoder.flutter.tencentad.SplashActivity;
 
 public class ADSplashActivity extends SplashActivity {
+
     @Override
     protected String getAppId() {
         return "1101152570";
@@ -15,18 +18,18 @@ public class ADSplashActivity extends SplashActivity {
 
 
     @Override
-    protected int getLaunchBackground() {
+    protected Integer getLaunchBackground() {
         return R.drawable.launch_background;
     }
 
     @Override
-    protected int getAppIconId() {
-        return 0;
+    protected Integer getAppIconId() {
+        return null;
     }
 
     @Override
-    protected int getBackgroundColor() {
-        return android.R.color.black;
+    protected Integer getAppIconBackgroundColor() {
+        return Color.WHITE;
     }
 
 }

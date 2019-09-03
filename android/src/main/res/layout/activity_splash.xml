@@ -13,8 +13,6 @@
         android:id="@+id/app_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="120dp"
-        android:adjustViewBounds="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />
