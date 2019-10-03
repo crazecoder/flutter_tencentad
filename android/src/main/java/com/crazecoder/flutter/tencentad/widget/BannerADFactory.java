@@ -57,6 +57,7 @@ public class BannerADFactory extends PlatformViewFactory implements View.OnClick
     }
     private UnifiedBannerView getBanner(String appId,String posId) {
         if( this.bv != null && this.posId.equals(posId)) {
+            this.bv.loadAD();
             return this.bv;
         }
         this.posId = posId;
