@@ -3,6 +3,7 @@ package com.crazecoder.flutter.tencentad;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.crazecoder.flutter.tencentad.widget.BannerADFactory;
 import com.crazecoder.flutter.tencentad.widget.NativeExpressADFactory;
 import com.crazecoder.flutter.tencentad.widget.SplashADFactory;
 import com.qq.e.ads.splash.SplashAD;
@@ -33,9 +34,12 @@ public class FlutterTencentadPlugin implements MethodCallHandler {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), "crazecoder/flutter_tencentad");
         NativeExpressADFactory nativeExpressADFactory = new NativeExpressADFactory(new StandardMessageCodec());
         SplashADFactory splashADFactory = new SplashADFactory(new StandardMessageCodec(), registrar);
+        BannerADFactory bannerADFactory = new BannerADFactory(new StandardMessageCodec(),registrar.activity());
 
         registrar.platformViewRegistry().registerViewFactory("splashADView", splashADFactory);
         registrar.platformViewRegistry().registerViewFactory("nativeExpressADView", nativeExpressADFactory);
+        registrar.platformViewRegistry().registerViewFactory("bannerADView", bannerADFactory);
+
 
         channel.setMethodCallHandler(new FlutterTencentadPlugin(registrar.activity()));
 
