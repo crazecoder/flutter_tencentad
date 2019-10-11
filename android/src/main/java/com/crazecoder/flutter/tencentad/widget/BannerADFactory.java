@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import com.qq.e.ads.banner2.UnifiedBannerADListener;
 import com.qq.e.ads.banner2.UnifiedBannerView;
@@ -26,7 +28,7 @@ public class BannerADFactory extends PlatformViewFactory implements View.OnClick
     private UnifiedBannerView bv;
     private String posId;
 
-    public BannerADFactory(MessageCodec<Object> createArgsCodec,Activity activity) {
+    public BannerADFactory(MessageCodec<Object> createArgsCodec, Activity activity) {
         super(createArgsCodec);
         this.activity = activity;
     }
@@ -38,10 +40,10 @@ public class BannerADFactory extends PlatformViewFactory implements View.OnClick
         if (param.containsKey("posId")) {
             posId = param.get("posId").toString();
         }
-        if(TextUtils.isEmpty(appId)||TextUtils.isEmpty(posId)){
+        if (TextUtils.isEmpty(appId) || TextUtils.isEmpty(posId)) {
             return null;
         }
-        bv = getBanner(appId,posId);
+        bv = getBanner(appId, posId);
         return new PlatformView() {
 
             @Override
@@ -55,8 +57,13 @@ public class BannerADFactory extends PlatformViewFactory implements View.OnClick
             }
         };
     }
-    private UnifiedBannerView getBanner(String appId,String posId) {
-        if( this.bv != null && this.posId.equals(posId)) {
+
+    private UnifiedBannerView getBanner(String appId, String posId) {
+        if (this.bv != null && this.posId.equals(posId)) {
+            ViewParent vp = this.bv.getParent();
+            if (vp != null) {
+                ((ViewGroup) vp).removeView(this.bv);
+            }
             this.bv.loadAD();
             return this.bv;
         }
@@ -77,7 +84,6 @@ public class BannerADFactory extends PlatformViewFactory implements View.OnClick
 //        getWindowManager().getDefaultDisplay().getSize(screenSize);
 //        return new FrameLayout.LayoutParams(screenSize.x,  Math.round(screenSize.x / 6.4F));
 //    }
-
     @Override
     public void onClick(View v) {
 
