@@ -8,23 +8,30 @@ import com.crazecoder.flutter.tencentad.widget.NativeExpressADFactory;
 import com.crazecoder.flutter.tencentad.widget.SplashADFactory;
 import com.qq.e.ads.splash.SplashAD;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.plugin.common.StandardMessageCodec;
 
 /**
  * FlutterTencentadPlugin
  */
-public class FlutterTencentadPlugin implements MethodCallHandler {
+public class FlutterTencentadPlugin implements MethodCallHandler , PluginRegistry.ActivityResultListener {
     private Activity activity;
     public static String appId;
     private SplashAD splashAD;
+    private MethodChannel channel;
+    private final int RESULT_CODE = 0x333;
 
-    private FlutterTencentadPlugin(Activity activity) {
+    private FlutterTencentadPlugin(Activity activity,MethodChannel channel ) {
         this.activity = activity;
+        this.channel = channel;
     }
 
     /**
@@ -39,9 +46,9 @@ public class FlutterTencentadPlugin implements MethodCallHandler {
         registrar.platformViewRegistry().registerViewFactory("splashADView", splashADFactory);
         registrar.platformViewRegistry().registerViewFactory("nativeExpressADView", nativeExpressADFactory);
         registrar.platformViewRegistry().registerViewFactory("bannerADView", bannerADFactory);
-
-
-        channel.setMethodCallHandler(new FlutterTencentadPlugin(registrar.activity()));
+        FlutterTencentadPlugin plugin = new FlutterTencentadPlugin(registrar.activity(),channel);
+        channel.setMethodCallHandler(plugin);
+        registrar.addActivityResultListener(plugin);
 
     }
 
@@ -59,7 +66,7 @@ public class FlutterTencentadPlugin implements MethodCallHandler {
                 String posId = call.argument("posId").toString();
                 preLoadSplashAD(posId);
                 intent.putExtra("posId",posId);
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent,RESULT_CODE);
             }
             result.success(null);
         } else {
@@ -69,5 +76,15 @@ public class FlutterTencentadPlugin implements MethodCallHandler {
     private void preLoadSplashAD(String posId){
         splashAD = new SplashAD(activity, appId, posId,null);
         splashAD.preLoad();
+    }
+
+    @Override
+    public boolean onActivityResult(int i, int i1, Intent intent) {
+        if(i == RESULT_CODE){
+            Map<String,String> map = new HashMap<>();
+            map.put("activityName", "FlutterTencentadPlugin");
+            channel.invokeMethod("onActivityResult",map);
+        }
+        return false;
     }
 }

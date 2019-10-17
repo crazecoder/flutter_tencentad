@@ -2,9 +2,9 @@ package com.crazecoder.flutter.flutter_tencentad_example;
 
 import android.graphics.Color;
 
-import com.crazecoder.flutter.tencentad.SplashActivity;
+import com.crazecoder.flutter.tencentad.SplashAbstractActivity;
 
-public class ADSplashActivity extends SplashActivity {
+public class ADSplashActivity extends SplashAbstractActivity {
 
     @Override
     protected String getAppId() {

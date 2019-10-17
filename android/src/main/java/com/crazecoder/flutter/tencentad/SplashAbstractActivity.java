@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
@@ -29,7 +33,7 @@ import java.util.List;
 
 import io.flutter.Log;
 
-public class SplashActivity extends Activity {
+public abstract class SplashAbstractActivity extends Activity {
     private SplashAD splashAD;
     private ViewGroup container;
     private TextView skipView;
@@ -62,12 +66,27 @@ public class SplashActivity extends Activity {
         container = (ViewGroup) this.findViewById(R.id.splash_container);
         skipView = (TextView) findViewById(R.id.skip_view);
         View placeHolder = findViewById(R.id.place_holder);
+        if (getLaunchBackground() != null)
+            placeHolder.setBackground(getResources().getDrawable(getLaunchBackground()));
+        ImageView iconView = (ImageView) findViewById(R.id.app_logo);
+        if (getAppIconBackgroundColor() != null) {
+            iconView.setBackgroundColor(getAppIconBackgroundColor());
+        }
+        if (getAppIconId() != null) {
+            iconView.setImageResource(getAppIconId());
+        }
 
         ImageView splashHolder = (ImageView) findViewById(R.id.splash_holder);
 //        if (getPlaceHolderImageId() > 0)
 //            splashHolder.setImageResource(getPlaceHolderImageId());
         appId = getIntent().getStringExtra("appId");
         adId = getIntent().getStringExtra("posId");
+        if (TextUtils.isEmpty(appId)) {
+            appId = getAppId();
+        }
+        if (TextUtils.isEmpty(adId)) {
+            adId = getPosId();
+        }
         // 如果targetSDKVersion >= 23，就要申请好权限。如果您的App没有适配到Android6.0（即targetSDKVersion < 23），那么只需要在这里直接调用fetchSplashAD接口。
         if (Build.VERSION.SDK_INT >= 23) {
             checkAndRequestPermission();
@@ -209,7 +228,7 @@ public class SplashActivity extends Activity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    SplashActivity.this.finish();
+                    SplashAbstractActivity.this.finish();
                 }
             }, shouldDelayMills);
         }
@@ -260,5 +279,19 @@ public class SplashActivity extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 
+    protected abstract String getAppId();
+
+    protected abstract String getPosId();
+
+//    protected abstract int getPlaceHolderImageId();
+
+    protected abstract @DrawableRes
+    Integer getLaunchBackground();
+
+    protected abstract @DrawableRes
+    Integer getAppIconId();
+
+    protected abstract @ColorInt
+    Integer getAppIconBackgroundColor();
 
 }
