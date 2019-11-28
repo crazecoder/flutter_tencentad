@@ -43,7 +43,6 @@ public class BannerUtil implements UnifiedBannerADListener {
 
     public void show(String posId) {
         UnifiedBannerView bv = cache.get(posId);
-        Log.e("11111", "show");
         if (bv != null) {
             bv.loadAD();
             LinearLayout content = new LinearLayout(activity);
@@ -54,7 +53,6 @@ public class BannerUtil implements UnifiedBannerADListener {
                     content,
                     new ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            Log.e("11111", "loadAD");
         }
     }
 
@@ -67,7 +65,6 @@ public class BannerUtil implements UnifiedBannerADListener {
 
             ViewGroup contentParent = (ViewGroup) (contentView.getParent());
             contentParent.removeView(contentView);
-            Log.e("11111", "dispose");
         }
     }
 
