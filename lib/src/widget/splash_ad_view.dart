@@ -44,7 +44,7 @@ class SplashADView extends StatelessWidget {
   }
 
   Future<Null> _click({
-    @required TapUpDetails detail,
+    TapUpDetails detail,
   }) async {
     Map map = {
       "dx": detail.localPosition.dx,

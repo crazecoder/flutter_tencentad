@@ -118,9 +118,9 @@ public abstract class SplashAbstractActivity extends Activity {
             lackedPermission.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
-        if (!(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-            lackedPermission.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
+//        if (!(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+//            lackedPermission.add(Manifest.permission.ACCESS_FINE_LOCATION);
+//        }
 
         // 权限都已经有了，那么直接调用SDK
         if (lackedPermission.size() == 0) {

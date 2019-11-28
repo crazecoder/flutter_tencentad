@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class FlutterTencentad {
@@ -10,7 +9,7 @@ class FlutterTencentad {
       StreamController<String>();
 
   static Future<Null> initTencentAdSDK(
-      {@required String appId}) async {
+      {String appId}) async {
     assert(appId != null && appId.isNotEmpty);
     Map map = {
       "appId": appId,
@@ -19,7 +18,7 @@ class FlutterTencentad {
   }
 
   static Future<Null> showSplashAD(
-      {@required String posId, Function onSplashAdActivityResult}) async {
+      {String posId, Function onSplashAdActivityResult}) async {
     assert(posId != null && posId.isNotEmpty);
     if (onSplashAdActivityResult != null) {
       _streamController.stream.listen((_data) {
@@ -30,6 +29,23 @@ class FlutterTencentad {
       "posId": posId,
     };
     await _channel.invokeMethod('showSplashAD', map);
+  }
+
+  static Future<Null> showBannerAD(
+      {String posId}) async {
+    assert(posId != null);
+    Map map = {
+      "posId": posId,
+    };
+    await _channel.invokeMethod('showBannerAD', map);
+  }
+  static Future<Null> disposeBannerAD(
+      {String posId}) async {
+    assert(posId != null);
+    Map map = {
+      "posId": posId,
+    };
+    await _channel.invokeMethod('disposeBannerAD', map);
   }
 
   static Future<Null> _handleMessages(MethodCall call) async {

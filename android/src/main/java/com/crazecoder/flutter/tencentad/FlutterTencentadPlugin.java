@@ -3,6 +3,7 @@ package com.crazecoder.flutter.tencentad;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.crazecoder.flutter.tencentad.utils.BannerUtil;
 import com.crazecoder.flutter.tencentad.widget.BannerADFactory;
 import com.crazecoder.flutter.tencentad.widget.NativeExpressADFactory;
 import com.crazecoder.flutter.tencentad.widget.SplashADFactory;
@@ -69,7 +70,16 @@ public class FlutterTencentadPlugin implements MethodCallHandler , PluginRegistr
                 activity.startActivityForResult(intent,RESULT_CODE);
             }
             result.success(null);
-        } else {
+        } else if (call.method.equals("showBannerAD")) {
+            String posId = call.argument("posId").toString();
+            BannerUtil.getInstance(activity).getBanner(appId,posId);
+            BannerUtil.getInstance(activity).show(posId);
+            result.success(null);
+        } else if (call.method.equals("disposeBannerAD")) {
+            String posId = call.argument("posId").toString();
+            BannerUtil.getInstance(activity).dispose(posId);
+            result.success(null);
+        }  else {
             result.notImplemented();
         }
     }
