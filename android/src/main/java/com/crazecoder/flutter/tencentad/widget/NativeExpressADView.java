@@ -173,7 +173,10 @@ public class NativeExpressADView extends FrameLayout implements NativeExpressAD.
         return null;
     }
 
-    private NativeExpressMediaListener mediaListener = new NativeExpressMediaListener() {
+    private MyNativeExpressMediaListener mediaListener = new MyNativeExpressMediaListener();
+
+    private class  MyNativeExpressMediaListener implements NativeExpressMediaListener{
+
         @Override
         public void onVideoInit(com.qq.e.ads.nativ.NativeExpressADView nativeExpressADView) {
             Log.i(TAG, "onVideoInit: "
@@ -184,6 +187,11 @@ public class NativeExpressADView extends FrameLayout implements NativeExpressAD.
         public void onVideoLoading(com.qq.e.ads.nativ.NativeExpressADView nativeExpressADView) {
             Log.i(TAG, "onVideoLoading: "
                     + getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+        }
+
+        @Override
+        public void onVideoCached(com.qq.e.ads.nativ.NativeExpressADView nativeExpressADView) {
+
         }
 
         @Override
@@ -224,6 +232,6 @@ public class NativeExpressADView extends FrameLayout implements NativeExpressAD.
         public void onVideoPageClose(com.qq.e.ads.nativ.NativeExpressADView nativeExpressADView) {
             Log.i(TAG, "onVideoPageClose");
         }
-    };
+    }
 
 }
