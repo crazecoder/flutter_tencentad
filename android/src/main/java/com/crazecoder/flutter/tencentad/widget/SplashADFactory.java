@@ -125,6 +125,11 @@ public class SplashADFactory extends PlatformViewFactory implements SplashADList
     }
 
     @Override
+    public void onADLoaded(long l) {
+
+    }
+
+    @Override
     public void onADDismissed() {
         Log.i("AD_DEMO", "SplashADDismissed");
     }
