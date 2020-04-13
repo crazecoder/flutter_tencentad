@@ -41,5 +41,5 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.core:core:1.1.0'
-    implementation (name:'GDTSDK.unionNormal.4.176.1046', ext:'aar')
+    implementation (name:'GDTSDK.unionNormal.4.191.1061', ext:'aar')
 }
