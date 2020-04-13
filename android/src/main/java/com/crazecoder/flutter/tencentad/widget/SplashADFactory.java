@@ -2,8 +2,6 @@ package com.crazecoder.flutter.tencentad.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -65,20 +63,6 @@ public class SplashADFactory extends PlatformViewFactory implements SplashADList
             public void dispose() {
             }
         };
-    }
-
-    private void setSimulateClick(View view, float x, float y) {
-        Log.e("click","x="+x+"  y="+y);
-        long downTime = SystemClock.uptimeMillis();
-        final MotionEvent downEvent = MotionEvent.obtain(downTime, downTime,
-                MotionEvent.ACTION_DOWN, x, y, 0);
-        downTime += 1000;
-        final MotionEvent upEvent = MotionEvent.obtain(downTime, downTime,
-                MotionEvent.ACTION_UP, x, y, 0);
-        view.onTouchEvent(downEvent);
-        view.onTouchEvent(upEvent);
-        downEvent.recycle();
-        upEvent.recycle();
     }
 
     /**

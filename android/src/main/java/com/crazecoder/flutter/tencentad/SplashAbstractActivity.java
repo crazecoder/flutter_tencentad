@@ -37,7 +37,7 @@ public abstract class SplashAbstractActivity extends Activity {
     private SplashAD splashAD;
     private ViewGroup container;
     private TextView skipView;
-    private static final String SKIP_TEXT = "点击跳过 %d";
+    private static final String SKIP_TEXT = "跳过 %d";
 
     public boolean canJump = false;
 
@@ -74,6 +74,14 @@ public abstract class SplashAbstractActivity extends Activity {
         }
         if (getAppIconId() != null) {
             iconView.setImageResource(getAppIconId());
+            iconView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewGroup viewGroup = (ViewGroup) container.getChildAt(0);
+                    if (viewGroup != null && viewGroup.getChildAt(0) != null)
+                        viewGroup.getChildAt(0).callOnClick();
+                }
+            });
         }
 
         ImageView splashHolder = (ImageView) findViewById(R.id.splash_holder);
